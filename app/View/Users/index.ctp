@@ -37,7 +37,7 @@
 
         <?php
 
-        echo $this->Paginator->counter(array(
+        echo $this->Paginator->counter(array(A
 
             'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
 
