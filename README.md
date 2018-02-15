@@ -6,21 +6,26 @@ The framework source code can be found here: [cakephp/cakephp](https://github.co
 
 ## Installation
 
-1. Download [Composer](https://getcomposer.org/doc/00-intro.md) or update `composer self-update`.
-2. Run `php composer.phar create-project --prefer-dist cakephp/app [app_name]`.
+1. Download `git clone https://github.com/gowthamand/cakephp-login-register-crud`.
 
 If Composer is installed globally, run
 
-```bash
-composer create-project --prefer-dist cakephp/app
-```
+2. Run `composer update`.
 
-In case you want to use a custom app dir name (e.g. `/myapp/`):
+3. Configure database config/app.php
 
-```bash
-composer create-project --prefer-dist cakephp/app myapp
-```
-
+4. `CREATE TABLE `users` (
+      `id` int(10) UNSIGNED NOT NULL,
+      `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+      `username` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+      `password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+      `role` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+      `created` datetime DEFAULT NULL,
+      `modified` datetime DEFAULT NULL
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+    ALTER TABLE `users`
+      ADD PRIMARY KEY (`id`); 
+`
 You can now either use your machine's webserver to view the default home page, or start
 up the built-in webserver with:
 
@@ -43,6 +48,4 @@ configuration relevant for your application.
 
 ## Layout
 
-The app skeleton uses a subset of [Foundation](http://foundation.zurb.com/) (v5) CSS
-framework by default. You can, however, replace it with any other library or
-custom styles.
+The app skeleton uses a subset of `Bootstarap 4 custom design 
