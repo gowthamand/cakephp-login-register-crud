@@ -8,7 +8,7 @@ The framework source code can be found here: [cakephp/cakephp](https://github.co
 
 1. Download `git clone https://github.com/gowthamand/cakephp-login-register-crud`.
 
-If Composer is installed globally, run
+            If Composer is installed globally, run
 
 2. Run `composer update`.
 
@@ -48,4 +48,4 @@ configuration relevant for your application.
 
 ## Layout
 
-The app skeleton uses a subset of `Bootstarap 4 custom design 
+The app skeleton uses a subset of `Bootstarap 4` custom design 
