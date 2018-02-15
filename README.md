@@ -14,7 +14,9 @@ The framework source code can be found here: [cakephp/cakephp](https://github.co
 
 3. Configure database config/app.php
 
-4. `CREATE TABLE `users` (
+<pre>
+
+    CREATE TABLE `users` (
       `id` int(10) UNSIGNED NOT NULL,
       `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
       `username` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -25,7 +27,10 @@ The framework source code can be found here: [cakephp/cakephp](https://github.co
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
     ALTER TABLE `users`
       ADD PRIMARY KEY (`id`); 
-`
+
+</pre>
+
+
 You can now either use your machine's webserver to view the default home page, or start
 up the built-in webserver with:
 
