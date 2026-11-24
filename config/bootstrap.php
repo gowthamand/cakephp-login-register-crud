@@ -100,7 +100,7 @@ if (getenv('UPSTASH_REDIS_REST_URL')) {
  * When debug = true the metadata cache should only last
  * for a short time.
  */
-if (Configure::read('debug')) {
+if (Configure::read('debug') && is_dir(ROOT . DS . 'vendor' . DS . 'cakephp' . DS . 'debug_kit')) {
     Configure::write('Cache._cake_model_.duration', '+2 minutes');
     Configure::write('Cache._cake_core_.duration', '+2 minutes');
 }
@@ -228,6 +228,6 @@ Type::build('timestamp')
  * Only try to load DebugKit in development mode
  * Debug Kit should not be installed on a production system
  */
-if (Configure::read('debug')) {
+if (Configure::read('debug') && is_dir(ROOT . DS . 'vendor' . DS . 'cakephp' . DS . 'debug_kit')) {
     Plugin::load('DebugKit', ['bootstrap' => true]);
 }
