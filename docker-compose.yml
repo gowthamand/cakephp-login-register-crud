@@ -2,21 +2,8 @@ services:
   app:
     build: .
     ports: ["8765:80"]
-    volumes: [".:/var/www/html", "./docker/ca-bundle.crt:/etc/ssl/certs/ca-certificates.crt:ro"]
-    depends_on: [db]
+    volumes: [".:/var/www/html"]
     env_file: .env
     command: >
       bash -c "[ -f config/app.php ] || cp config/app.default.php config/app.php;
-      sed -i \"s/'host' => 'localhost'/'host' => 'db'/\" config/app.php;
       composer install --no-interaction --ignore-platform-reqs && mkdir -p tmp logs && chmod -R 777 tmp logs && apache2-foreground"
-  db:
-    image: mysql:8.0
-    command: --default-authentication-plugin=mysql_native_password
-    environment:
-      MYSQL_ROOT_PASSWORD: welcome
-      MYSQL_DATABASE: cakephp
-    volumes:
-      - dbdata:/var/lib/mysql
-      - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql
-volumes:
-  dbdata:

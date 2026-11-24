@@ -40,3 +40,4 @@ nbproject/*
 .sass-cache/
 docker/ca-bundle.crt
 .env
+docker-compose.override.yml

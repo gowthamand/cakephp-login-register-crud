@@ -49,7 +49,9 @@ Router::scope('/', function (RouteBuilder $routes) {
      * its action called 'display', and we pass a param to select the view file
      * to use (in this case, src/Template/Pages/home.ctp)...
      */
-    $routes->connect('/', ['controller' => 'Users', 'action' => 'login']);
+    // Home page is the login screen. A redirect (not connect) keeps /users/login
+    // as the canonical URL, which AuthComponent relies on.
+    $routes->redirect('/', ['controller' => 'Users', 'action' => 'login']);
 
     /**
      * ...and connect the rest of 'Pages' controller's URLs.
