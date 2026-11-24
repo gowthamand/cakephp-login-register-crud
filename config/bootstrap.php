@@ -80,7 +80,7 @@ try {
 //Configure::load('app_local', 'default');
 
 // Vercel runs the app from a different folder layout; don't auto-detect the base path.
-if (getenv('VERCEL')) {
+if (getenv('VERCEL') || strpos(__DIR__, '/var/task') === 0) {
     Configure::write('App.base', '');
     Configure::write('App.webroot', 'webroot');
 }

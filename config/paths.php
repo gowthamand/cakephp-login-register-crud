@@ -60,12 +60,12 @@ define('TESTS', ROOT . DS . 'tests' . DS);
  * Path to the temporary files directory.
  */
 // Vercel's filesystem is read-only except /tmp
-define('TMP', getenv('VERCEL') ? '/tmp/' : ROOT . DS . 'tmp' . DS);
+define('TMP', (getenv('VERCEL') || strpos(__DIR__, '/var/task') === 0) ? '/tmp/' : ROOT . DS . 'tmp' . DS);
 
 /**
  * Path to the logs directory.
  */
-define('LOGS', getenv('VERCEL') ? '/tmp/' : ROOT . DS . 'logs' . DS);
+define('LOGS', (getenv('VERCEL') || strpos(__DIR__, '/var/task') === 0) ? '/tmp/' : ROOT . DS . 'logs' . DS);
 
 /**
  * Path to the cache files directory. It can be shared between hosts in a multi-server setup.
