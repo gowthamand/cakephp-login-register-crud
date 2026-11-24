@@ -2,7 +2,7 @@
 
 [![PHP](https://img.shields.io/badge/PHP-7.4-777BB4.svg)](#)
 [![CakePHP](https://img.shields.io/badge/CakePHP-3.5-D33C43.svg)](#)
-[![Redis](https://img.shields.io/badge/Redis-Upstash-DC382D.svg)](#)
+[![Redis](https://img.shields.io/badge/Redis-REST%20API-DC382D.svg)](#)
 [![Vercel](https://img.shields.io/badge/Deployed-Vercel-000000.svg)](#)
 
 <a href="https://cakephp-login-register-crud.vercel.app/"><b>Live Demo</b></a>
@@ -13,7 +13,7 @@
 - User CRUD (create, list, view, edit, delete)
 - Form validation and role support (admin / author)
 - Passwords hashed with bcrypt
-- Data stored in **Redis** (Upstash), no MySQL needed
+- Data stored in **Redis**, no MySQL needed
 - Sessions stored in Redis, so logins survive serverless cold starts
 - Runs locally with **Docker**, deploys to **Vercel**
 
@@ -23,7 +23,7 @@
 |---|---|
 | Framework | CakePHP 3.5 |
 | Language | PHP 7.4 |
-| Database | Redis ([Upstash](https://upstash.com)) over the REST API |
+| Database | Redis over its REST API |
 | Sessions | Redis (custom `SessionHandlerInterface`) |
 | Local runtime | Docker (`php:7.4-apache`) |
 | Hosting | Vercel (`vercel-php@0.3.6`) |
@@ -58,10 +58,10 @@ git clone https://github.com/gowthamand/cakephp-login-register-crud
 cd cakephp-login-register-crud
 ```
 
-Create a `.env` file with your Upstash credentials:
+Create a `.env` file with your Redis credentials:
 
 ```bash
-UPSTASH_REDIS_REST_URL=https://your-db.upstash.io
+UPSTASH_REDIS_REST_URL=https://your-redis-host
 UPSTASH_REDIS_REST_TOKEN=your-rest-token
 ```
 
@@ -102,7 +102,7 @@ openssl rand -hex 32
 ## Project Structure
 
 ```
-src/Model/Redis/RedisClient.php      Upstash REST client
+src/Model/Redis/RedisClient.php      Redis REST client
 src/Model/Redis/RedisUserStore.php   Users on Redis
 src/Auth/RedisAuthenticate.php       Login against Redis
 src/Network/Session/RedisSession.php Sessions on Redis
