@@ -150,7 +150,7 @@ return [
      *   breathing room to complete logging or error handling.
      */
     'Error' => [
-        'errorLevel' => E_ALL,
+        'errorLevel' => E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED & ~E_NOTICE, // CakePHP 3.5 emits deprecations/notices on PHP 7.4
         'exceptionRenderer' => 'Cake\Error\ExceptionRenderer',
         'skipLog' => [],
         'log' => true,
