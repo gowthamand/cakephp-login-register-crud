@@ -59,12 +59,13 @@ define('TESTS', ROOT . DS . 'tests' . DS);
 /**
  * Path to the temporary files directory.
  */
-define('TMP', ROOT . DS . 'tmp' . DS);
+// Vercel's filesystem is read-only except /tmp
+define('TMP', getenv('VERCEL') ? '/tmp/' : ROOT . DS . 'tmp' . DS);
 
 /**
  * Path to the logs directory.
  */
-define('LOGS', ROOT . DS . 'logs' . DS);
+define('LOGS', getenv('VERCEL') ? '/tmp/' : ROOT . DS . 'logs' . DS);
 
 /**
  * Path to the cache files directory. It can be shared between hosts in a multi-server setup.

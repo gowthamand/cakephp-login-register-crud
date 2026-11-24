@@ -8,6 +8,17 @@ class UsersTable extends Table {
 
     public function initialize(array $config) {
         $this->table('ck_users');
+        // Schema is defined here so no SQL database is needed (users live in Redis).
+        $this->schema([
+            'id' => ['type' => 'integer'],
+            'name' => ['type' => 'string'],
+            'username' => ['type' => 'string'],
+            'password' => ['type' => 'string'],
+            'role' => ['type' => 'string'],
+            'created' => ['type' => 'datetime'],
+            'modified' => ['type' => 'datetime'],
+            '_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]],
+        ]);
         $this->addBehavior('Timestamp');
     }
 

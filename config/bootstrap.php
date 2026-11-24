@@ -67,7 +67,7 @@ use Cake\Utility\Security;
  */
 try {
     Configure::config('default', new PhpConfig());
-    Configure::load('app', 'default', false);
+    Configure::load(file_exists(CONFIG . 'app.php') ? 'app' : 'app.default', 'default', false);
 } catch (\Exception $e) {
     exit($e->getMessage() . "\n");
 }
@@ -78,6 +78,11 @@ try {
  * shared configuration.
  */
 //Configure::load('app_local', 'default');
+
+// Keep sessions in Redis so they work across serverless instances.
+if (getenv('UPSTASH_REDIS_REST_URL')) {
+    Configure::write('Session.handler', ['engine' => 'App\\Network\\Session\\RedisSession']);
+}
 
 /*
  * When debug = true the metadata cache should only last
