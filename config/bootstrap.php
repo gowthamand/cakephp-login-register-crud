@@ -79,6 +79,12 @@ try {
  */
 //Configure::load('app_local', 'default');
 
+// Vercel runs the app from a different folder layout; don't auto-detect the base path.
+if (getenv('VERCEL')) {
+    Configure::write('App.base', '');
+    Configure::write('App.webroot', 'webroot');
+}
+
 // Keep sessions in Redis so they work across serverless instances.
 if (getenv('UPSTASH_REDIS_REST_URL')) {
     Configure::write('Session.handler', ['engine' => 'App\\Network\\Session\\RedisSession']);
