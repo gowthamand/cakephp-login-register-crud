@@ -1,5 +1,6 @@
 # <a href="https://github.com/gowthamand/cakephp-login-register-crud">CakePHP CRUD, Login, Register, Dashboard</a>
 
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![PHP](https://img.shields.io/badge/PHP-7.4-777BB4.svg)](#)
 [![CakePHP](https://img.shields.io/badge/CakePHP-3.5-D33C43.svg)](#)
 [![Redis](https://img.shields.io/badge/Redis-REST%20API-DC382D.svg)](#)
