@@ -4,10 +4,16 @@ namespace App\Model\Redis;
 /** Minimal Upstash Redis REST client. */
 class RedisClient {
 
+    /** Reads REDIS_REST_*, falling back to the older UPSTASH_REDIS_REST_* names. */
+    public static function config($key) {
+        return getenv('REDIS_REST_' . $key) ?: getenv('UPSTASH_REDIS_REST_' . $key);
+    }
+
     public static function cmd(array $args) {
-        $url = getenv('UPSTASH_REDIS_REST_URL');
-        if (!$url || !getenv('UPSTASH_REDIS_REST_TOKEN')) {
-            throw new \RuntimeException('Redis env vars UPSTASH_REDIS_REST_URL / UPSTASH_REDIS_REST_TOKEN are not set');
+        $url = self::config('URL');
+        $token = self::config('TOKEN');
+        if (!$url || !$token) {
+            throw new \RuntimeException('Redis env vars REDIS_REST_URL / REDIS_REST_TOKEN are not set');
         }
         $ch = curl_init(rtrim($url, '/'));
         curl_setopt_array($ch, [
@@ -15,7 +21,7 @@ class RedisClient {
             CURLOPT_POSTFIELDS => json_encode($args),
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => [
-                'Authorization: Bearer ' . getenv('UPSTASH_REDIS_REST_TOKEN'),
+                'Authorization: Bearer ' . $token,
                 'Content-Type: application/json',
             ],
         ]);

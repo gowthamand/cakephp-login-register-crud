@@ -92,7 +92,8 @@ if (getenv('VERCEL') || strpos(__DIR__, '/var/task') === 0) {
 }
 
 // Keep sessions in Redis so they work across serverless instances.
-if (getenv('UPSTASH_REDIS_REST_URL')) {
+// Leading backslash: `use Cake\Core\App` above would otherwise alias `App\`.
+if (\App\Model\Redis\RedisClient::config('URL')) {
     Configure::write('Session.handler', ['engine' => 'App\\Network\\Session\\RedisSession']);
 }
 

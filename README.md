@@ -5,13 +5,13 @@
 [![Redis](https://img.shields.io/badge/Redis-REST%20API-DC382D.svg)](#)
 [![Vercel](https://img.shields.io/badge/Deployed-Vercel-000000.svg)](#)
 
-<a href="https://cakephp-login-register-crud.vercel.app/"><b>Live Demo</b></a>
+<a href="https://cakephp-login-register-crud.vercel.app/"><img src="screenshots/live-demo.svg" width="24" height="24" align="absmiddle" alt=""> <b>Live Demo</b></a>
 
 ## Key Features
 
 - Register / Login / Logout
 - User CRUD (create, list, view, edit, delete)
-- Form validation and role support (admin / author)
+- Form validation and roles (admin / author)
 - Passwords hashed with bcrypt
 - Data stored in **Redis**, no MySQL needed
 - Sessions stored in Redis, so logins survive serverless cold starts
@@ -46,46 +46,39 @@ Settings come from environment variables. Never commit the real token.
 
 | Variable | Required | Default |
 |---|---|---|
-| `UPSTASH_REDIS_REST_URL` | ✅ | none |
-| `UPSTASH_REDIS_REST_TOKEN` | ✅ | none |
+| `REDIS_REST_URL` | ✅ | none |
+| `REDIS_REST_TOKEN` | ✅ | none |
 | `SECURITY_SALT` | ✅ in production | `__SALT__` |
 | `DEBUG` | | `true` |
+
+The older `UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN` names still work as a fallback.
 
 ## Run Locally (Docker)
 
 ```bash
 git clone https://github.com/gowthamand/cakephp-login-register-crud
 cd cakephp-login-register-crud
-```
 
-Create a `.env` file with your Redis credentials:
-
-```bash
-UPSTASH_REDIS_REST_URL=https://your-redis-host
-UPSTASH_REDIS_REST_TOKEN=your-rest-token
-```
-
-Then start it:
-
-```bash
+cp .env.example .env        # then set REDIS_REST_URL and REDIS_REST_TOKEN in .env
 docker compose up --build
 ```
 
 Open http://localhost:8765 — the home page is the login screen.
-Register a first account at http://localhost:8765/users/add
 
-## Deploy to Vercel
+Register the first account at http://localhost:8765/users/add
 
-1. Import the repository in Vercel. `vercel.json` handles the rest.
-2. Under **Settings → Environment Variables**, add `UPSTASH_REDIS_REST_URL`,
-   `UPSTASH_REDIS_REST_TOKEN`, `SECURITY_SALT` and `DEBUG=false`.
-3. Redeploy, since variables only apply to new deployments.
-
-Generate a salt with:
+Generate a production salt with:
 
 ```bash
 openssl rand -hex 32
 ```
+
+## Deploy to Vercel
+
+1. Import the repository in Vercel. `vercel.json` handles the runtime and routing.
+2. Under **Settings → Environment Variables**, add `REDIS_REST_URL`, `REDIS_REST_TOKEN`,
+   `SECURITY_SALT` and `DEBUG=false`.
+3. Redeploy, since variables only apply to new deployments.
 
 ## Routes
 
@@ -102,15 +95,30 @@ openssl rand -hex 32
 ## Project Structure
 
 ```
-src/Model/Redis/RedisClient.php      Redis REST client
+src/Model/Redis/RedisClient.php      Redis REST client (env vars)
 src/Model/Redis/RedisUserStore.php   Users on Redis
 src/Auth/RedisAuthenticate.php       Login against Redis
 src/Network/Session/RedisSession.php Sessions on Redis
 src/Controller/UsersController.php   Register, login, CRUD
 src/Template/Users/                  add, edit, index, view, login
+config/routes.php                    Routes ( / → login )
 api/index.php                        Vercel entrypoint
 vercel.json                          Vercel runtime and routes
 Dockerfile, docker-compose.yml       Local Docker setup
 ```
+
+## Screenshots
+
+**Login**
+![Login](screenshots/login.png)
+
+**Register**
+![Register](screenshots/register.png)
+
+**Users List**
+![Users List](screenshots/users-list.png)
+
+**User Details**
+![User Details](screenshots/user-view.png)
 
 ## ⭐ Don't forget to give a star and fork!
