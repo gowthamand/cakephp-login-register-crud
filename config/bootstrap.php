@@ -67,7 +67,13 @@ use Cake\Utility\Security;
  */
 try {
     Configure::config('default', new PhpConfig());
-    Configure::load(file_exists(CONFIG . 'app.php') ? 'app' : 'app.default', 'default', false);
+    if (file_exists(CONFIG . 'app.php')) {
+        Configure::load('app', 'default', false);
+    } else {
+        // No local app.php (e.g. on Vercel): use the defaults, driven by env vars.
+        // Not Configure::load('app.default'): Cake would read the dot as a plugin name.
+        Configure::write(require CONFIG . 'app.default.php');
+    }
 } catch (\Exception $e) {
     exit($e->getMessage() . "\n");
 }
