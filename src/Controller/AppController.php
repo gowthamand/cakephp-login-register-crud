@@ -10,6 +10,7 @@ class AppController extends Controller {
     public function initialize() {
         $this->loadComponent('Flash');
         $this->loadComponent('Auth', [
+            'authenticate' => ['Redis'],
             'loginRedirect' => [
                 'controller' => 'Users',
                 'action' => 'index'

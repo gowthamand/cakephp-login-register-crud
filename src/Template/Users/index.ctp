@@ -3,11 +3,11 @@
     <table cellpadding="0" cellspacing="0">
         <thead>
         <tr>
-            <th><?php echo $this->Paginator->sort('id'); ?></th>
-            <th><?php echo $this->Paginator->sort('Name'); ?></th>
-            <th><?php echo $this->Paginator->sort('Username'); ?></th>
-            <th><?php echo $this->Paginator->sort('created'); ?></th>
-            <th><?php echo $this->Paginator->sort('modified'); ?></th>
+            <th><?php echo 'id'; ?></th>
+            <th><?php echo 'Name'; ?></th>
+            <th><?php echo 'Username'; ?></th>
+            <th><?php echo 'created'; ?></th>
+            <th><?php echo 'modified'; ?></th>
             <th class="actions"><?php echo __('Actions'); ?></th>
         </tr>
         </thead>
@@ -22,7 +22,7 @@
                 <td class="actions">
                     <?php echo $this->Html->link(__('View'), array('action' => 'view', $user->id)); ?>
                     <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $user->id)); ?>
-                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $user->id), array(), __('Are you sure you want to delete # %s?', $user['User']['id'])); ?>
+                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $user->id), array(), __('Are you sure you want to delete # %s?', $user->id)); ?>
                 </td>
             </tr>
         <?php endforeach; ?>

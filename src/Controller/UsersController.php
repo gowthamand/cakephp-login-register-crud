@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Event\Event;
+use App\Model\Redis\RedisUserStore;
 
 class UsersController extends AppController {
 
@@ -14,11 +15,12 @@ class UsersController extends AppController {
 
      public function index() {
 //        $this->set('users', $this->Users->find('all'));
-        $this->set('users', $this->paginate());
+        $this->set('users', (new RedisUserStore())->all());
     }
 
     public function view($id) {
-        $user = $this->Users->get($id);
+        $user = $this->store()->get($id);
+        if (!$user) { throw new \Cake\Network\Exception\NotFoundException(); }
         $this->set(compact('user'));
     }
 
@@ -26,7 +28,7 @@ class UsersController extends AppController {
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
-            if ($this->Users->save($user)) {
+            if (!$user->getErrors() && $this->store()->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
                 return $this->redirect(['action' => 'login']);
             }
@@ -35,10 +37,11 @@ class UsersController extends AppController {
         $this->set('user', $user);
     }
     public function edit($id = null){
-        $user = $this->Users->get($id);
+        $user = $this->store()->get($id);
+        if (!$user) { throw new \Cake\Network\Exception\NotFoundException(); }
 	        if ($this->request->is(['post', 'put'])) {
 	            $this->Users->patchEntity($user, $this->request->data);
-	            if ($this->Users->save($user)) {
+	            if (!$user->getErrors() && $this->store()->save($user)) {
 	                $this->Flash->success(__('Your user has been updated.'));
 	                return $this->redirect(['action' => 'index']);
 	            }
@@ -48,12 +51,15 @@ class UsersController extends AppController {
 	    }
     public function delete($id){
         $this->request->allowMethod(['post', 'delete']);
-        $user = $this->Users->get($id);
-	        if ($this->Users->delete($user)) {
+	        if ($this->store()->delete($id)) {
 	            $this->Flash->success(__('The user with id: {0} has been deleted.', h($id)));
 	            return $this->redirect(['action' => 'index']);
 	        }
 	    }
+    private function store() {
+        return new RedisUserStore();
+    }
+
     public function login() {
         if ($this->request->is('post')) {
             $user = $this->Auth->identify();

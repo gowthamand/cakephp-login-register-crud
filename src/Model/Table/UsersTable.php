@@ -7,6 +7,7 @@ use Cake\Validation\Validator;
 class UsersTable extends Table {
 
     public function initialize(array $config) {
+        $this->table('ck_users');
         $this->addBehavior('Timestamp');
     }
 
